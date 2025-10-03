@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import Image from "next/image";
 
 type ProjectCardProps = {
   title: string;
@@ -48,7 +49,7 @@ export default function ProjectCard({
             playsInline
           />
         ) : (
-          <img
+          <Image
             className="w-full h-40 md:h-44 object-cover"
             src={previewSrc}
             alt={title}

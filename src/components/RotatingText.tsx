@@ -51,6 +51,13 @@ export interface RotatingTextProps
   elementLevelClassName?: string;
 }
 
+type SegmentData = { segment: string };
+type SegmenterInstance = { segment: (input: string) => Iterable<SegmentData> };
+type SegmenterCtor = new (
+  locale: string,
+  options: { granularity: 'grapheme' | 'word' | 'sentence' }
+) => SegmenterInstance;
+
 const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
   (
     {
@@ -78,9 +85,10 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
     const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
 
     const splitIntoCharacters = (text: string): string[] => {
-      if (typeof Intl !== 'undefined' && (Intl as any).Segmenter) {
-        const segmenter = new (Intl as any).Segmenter('en', { granularity: 'grapheme' });
-        return Array.from(segmenter.segment(text), (segment: any) => segment.segment);
+      const I = Intl as unknown as { Segmenter?: SegmenterCtor };
+      if (typeof I !== 'undefined' && I.Segmenter) {
+        const segmenter = new I.Segmenter('en', { granularity: 'grapheme' });
+        return Array.from(segmenter.segment(text), (seg) => seg.segment);
       }
       return Array.from(text);
     };
@@ -106,7 +114,6 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
           needsSpace: i !== arr.length - 1,
         }));
       }
-
       return currentText.split(splitBy).map((part, i, arr) => ({
         characters: [part],
         needsSpace: i !== arr.length - 1,
@@ -142,33 +149,25 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
     const next = useCallback(() => {
       const nextIndex =
         currentTextIndex === texts.length - 1 ? (loop ? 0 : currentTextIndex) : currentTextIndex + 1;
-      if (nextIndex !== currentTextIndex) {
-        handleIndexChange(nextIndex);
-      }
+      if (nextIndex !== currentTextIndex) handleIndexChange(nextIndex);
     }, [currentTextIndex, texts.length, loop, handleIndexChange]);
 
     const previous = useCallback(() => {
       const prevIndex =
         currentTextIndex === 0 ? (loop ? texts.length - 1 : currentTextIndex) : currentTextIndex - 1;
-      if (prevIndex !== currentTextIndex) {
-        handleIndexChange(prevIndex);
-      }
+      if (prevIndex !== currentTextIndex) handleIndexChange(prevIndex);
     }, [currentTextIndex, texts.length, loop, handleIndexChange]);
 
     const jumpTo = useCallback(
       (index: number) => {
         const validIndex = Math.max(0, Math.min(index, texts.length - 1));
-        if (validIndex !== currentTextIndex) {
-          handleIndexChange(validIndex);
-        }
+        if (validIndex !== currentTextIndex) handleIndexChange(validIndex);
       },
       [texts.length, currentTextIndex, handleIndexChange]
     );
 
     const reset = useCallback(() => {
-      if (currentTextIndex !== 0) {
-        handleIndexChange(0);
-      }
+      if (currentTextIndex !== 0) handleIndexChange(0);
     }, [currentTextIndex, handleIndexChange]);
 
     useImperativeHandle(ref, () => ({ next, previous, jumpTo, reset }), [next, previous, jumpTo, reset]);
@@ -191,7 +190,7 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
           <motion.span
             key={currentTextIndex}
             className={cn(
-              splitBy === 'lines' ? 'flex flex-col w-full' : 'flex flex-wrap whitespace-pre-wrap relative'
+              splitBy === 'lines' ? 'flex flex-col w/full' : 'flex flex-wrap whitespace-pre-wrap relative'
             )}
             layout
             aria-hidden="true"

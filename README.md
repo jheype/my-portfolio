@@ -1,6 +1,6 @@
 # Portfolio — Full-Stack (Next.js + TypeScript + Tailwind v4)
 
-Landing page moderna com animações inspiradas no **React Bits**, tema roxo, e foco em performance e acessibilidade.
+Portfolio pessoal com animações inspiradas no **React Bits**, tema roxo, e foco em performance e acessibilidade.
 
 https://barbershop-ebon-three.vercel.app/
 
