@@ -5,7 +5,7 @@ import Image from "next/image";
 type ProjectCardProps = {
   title: string;
   desc: string;
-  url: string;
+  url: string; 
   previewSrc: string; 
   previewType?: "image" | "video"; 
   className?: string;
@@ -32,6 +32,7 @@ export default function ProjectCard({
         className
       )}
     >
+      {/* Card interno de preview */}
       <div
         className={clsx(
           "m-3 rounded-xl overflow-hidden border",
@@ -49,12 +50,15 @@ export default function ProjectCard({
             playsInline
           />
         ) : (
-          <Image
-            className="w-full h-40 md:h-44 object-cover"
-            src={previewSrc}
-            alt={title}
-            loading="lazy"
-          />
+          <div className="relative w-full h-40 md:h-44">
+            <Image
+              src={previewSrc}
+              alt={title}
+              fill
+              sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         )}
       </div>
 
