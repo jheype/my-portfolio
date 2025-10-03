@@ -2,7 +2,7 @@
 
 Portfolio pessoal com animações inspiradas no **React Bits**, tema roxo, e foco em performance e acessibilidade.
 
-https://barbershop-ebon-three.vercel.app/
+https://my-portfolio-mocha-eight-40.vercel.app/
 
 ---
 
