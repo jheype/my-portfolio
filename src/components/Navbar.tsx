@@ -1,18 +1,24 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { FiMoon, FiSun } from "react-icons/fi";
+import { Bitcount_Prop_Double } from "next/font/google";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
+import { useI18n } from "@/i18n/I18nProvider";
+
+const bitCount = Bitcount_Prop_Double({
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700"],
+});
 
 export default function Navbar() {
-  const [dark, setDark] = useState(false);
-  useEffect(() => { document.documentElement.classList.toggle("dark", dark); }, [dark]);
+  const { t } = useI18n();
 
   const items = [
-    { href: "#inicio", label: "Início" },
-    { href: "#stack", label: "Stack" },
-    { href: "#projetos", label: "Projetos" },
-    { href: "#sobre", label: "Sobre" },
-    { href: "#contato", label: "Contato" },
+    { href: "#inicio", label: t("nav.home") },
+    { href: "#stack", label: t("nav.stack") },
+    { href: "#projetos", label: t("nav.projects") },
+    { href: "#sobre", label: t("nav.about") },
+    { href: "#contato", label: t("nav.contact") },
   ];
 
   return (
@@ -26,13 +32,12 @@ export default function Navbar() {
         aria-hidden
         className="
           pointer-events-none absolute inset-0 -z-10
-          bg-gradient-to-b from-brand-700/35 to-transparent
+          bg-gradient-to-b from-brand-300/30 to-transparent
           dark:from-brand-900/45 dark:to-transparent
         "
       />
-
-      <nav className="container-custom flex h-16 items-center justify-between">
-        <Link href="#inicio" className="font-semibold text-brand-400">
+      <nav className="container-custom flex h-16 items-center justify-between gap-3">
+        <Link href="#inicio" className={`${bitCount.className} text-xl font-semibold text-brand-400`}>
           JP.dev
         </Link>
 
@@ -51,17 +56,10 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <button
-          onClick={() => setDark((v) => !v)}
-          className="cursor-pointer rounded-xl border border-neutral-200 dark:border-neutral-800 px-3 py-1 text-sm hover:shadow-glow
-                     text-neutral-900 dark:text-neutral-100 transition-all"
-        >
-          {dark ? (
-            <span className="inline-flex items-center gap-2"><FiSun /> Light</span>
-          ) : (
-            <span className="inline-flex items-center gap-2"><FiMoon /> Dark</span>
-          )}
-        </button>
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

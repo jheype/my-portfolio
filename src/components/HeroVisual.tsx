@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 
 export default function HeroVisual({
-  src = "/me.png",
+  src = "/me.jpg",
   alt = "Minha foto",
 }: {
   src?: string;
@@ -26,9 +26,16 @@ export default function HeroVisual({
           className="object-cover"
         />
 
-        <div className="pointer-events-none absolute inset-0 mix-blend-multiply bg-gradient-to-br from-brand-500/20 to-brand-700/20" />
+        <div
+          className="
+            pointer-events-none absolute inset-0
+            bg-gradient-to-br from-brand-400/10 to-brand-600/10
+            dark:from-brand-500/20 dark:to-brand-700/20
+            dark:mix-blend-multiply
+          "
+        />
 
-        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/30 dark:ring-white/10" />
+        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10" />
       </div>
     </motion.div>
   );
