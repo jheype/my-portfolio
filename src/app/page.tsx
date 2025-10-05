@@ -27,7 +27,7 @@ export default function HomePage() {
       desc_pt: "Sistema de agendamentos full-stack (Next + Prisma + MongoDB) com painel de serviços, horários e autenticação. Animações sutis e UI responsiva.",
       site: "https://barbershop-ebon-three.vercel.app/",
       repo: "https://github.com/jheype/barbershop",
-      previewSrc: "https://media.discordapp.net/attachments/721365699821305898/1423760354907000872/Screenshot_1.png?ex=68e17ba8&is=68e02a28&hm=f5c57107b3a2d7cedc03c396307e4d4a7336feb1cc30386da281a83251692d3f&=&format=webp&quality=lossless&width=688&height=310",
+      previewSrc: "/barbearia.gif",
       previewType: "image" as const,
     },
     {
@@ -36,7 +36,7 @@ export default function HomePage() {
       desc_pt: "Planner de estudos com geração de quizzes, rastreio de progresso e temas customizáveis. Construído com Next.js e ShadCN.",
       site: "",
       repo: "https://github.com/jheype/fuvest-planner",
-      previewSrc: "https://media.discordapp.net/attachments/721365699821305898/1423761068605440061/image.png?ex=68e17c52&is=68e02ad2&hm=070cc8253ea36ffbc246eb0ef0ebbb38a1982f1ffb235419e6d0f14b240007c3&=&format=webp&quality=lossless&width=1761&height=800",
+      previewSrc: "/fuvest.png",
       previewType: "image" as const,
     },
     {
@@ -45,7 +45,7 @@ export default function HomePage() {
       desc_pt: "App de finanças pessoais com categorias, recorrências e tema dark roxo. Integração com gráficos e exportação.",
       site: "",
       repo: "https://github.com/jheype/flutter-finances",
-      previewSrc: "https://media.discordapp.net/attachments/721365699821305898/1423764015691333683/Screenshot_2.png?ex=68e17f11&is=68e02d91&hm=2cdeaeee8a716e9d5eec8cc8b3861982ef377ee76110432487fef9ddf7cfbafb&=&format=webp&quality=lossless&width=1665&height=800",
+      previewSrc: "/flutter.png",
       previewType: "image" as const,
     },
   ];
