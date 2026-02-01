@@ -10,10 +10,10 @@ const bitCount = Bitcount_Prop_Double({
   weight: ["400", "500", "600"],
 });
 
-type NavItem = {
-  href: `#${string}`;
-  label: string;
-};
+  type NavItem = {
+    href: `#${string}` | `/${string}`;
+    label: string;
+  };
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,11 +26,6 @@ export default function Navbar() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  type NavItem = {
-    href: `#${string}` | `/${string}`;
-    label: string;
-  };
 
   const items: NavItem[] = [
     { href: "/#inicio", label: "Home" },
