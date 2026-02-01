@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import Image from "next/image";
 import Navbar from "@/components/Navbar"; 
 import BootTerminal from "@/components/BootTerminal";
 import GlitchHeader from "@/components/GlitchHeader";
@@ -182,8 +183,9 @@ function PortfolioContent() {
                      tags={["NEXT.JS", "MONGODB", "PRISMA"]}
                      desc="Complete scheduling system with admin dashboard, finance tracking and automated reminders."
                      color="purple"
-                     href="https://barbershop-ebon-three.vercel.app/"
+                     href="/projects/barbearia-hefziba"
                      className="h-full"
+                     img="/barbearia.gif"
                   />
                 </motion.div>
                 
@@ -194,8 +196,9 @@ function PortfolioContent() {
                      tags={["NODE.JS", "DISCORD.JS", "AI"]}
                      desc="Advanced Discord bot for server management and automation."
                      color="cyan"
-                     href="#" 
+                     href="/projects/jigbot" 
                      className="h-full"
+                     img="./jigbot.gif"
                   />
                 </motion.div>
 
@@ -232,6 +235,7 @@ function PortfolioContent() {
                      color="purple"
                      href="https://brunalmeidapsi.com"
                      className="h-full"
+                     img="/brunapsi.gif"
                   />
                 </motion.div>
              </div>
@@ -296,7 +300,17 @@ function TechTile({ icon, name }: { icon: React.ReactNode, name: string }) {
    )
 }
 
-function ProjectCardCyber({ title, tags, desc, color, href, className = "" }: { title: string, tags: string[], desc: string, color: "purple" | "cyan", href: string, className?: string }) {
+type ProjectProps = { 
+  title: string; 
+  tags: string[]; 
+  desc: string; 
+  color: "purple" | "cyan"; 
+  href: string; 
+  className?: string;
+  img?: string;
+};
+
+function ProjectCardCyber({ title, tags, desc, color, href, className = "", img }: ProjectProps) {
    const borderColor = color === "purple" ? "hover:border-purple-500/50" : "hover:border-cyan-500/50";
    const textColor = color === "purple" ? "text-purple-500" : "text-cyan-500";
    const bgColor = color === "purple" ? "hover:bg-purple-500/5" : "hover:bg-cyan-500/5";
@@ -305,14 +319,31 @@ function ProjectCardCyber({ title, tags, desc, color, href, className = "" }: { 
       <motion.a 
          href={href}
          target="_blank"
-         whileHover={{ scale: 1.01 }}
+         whileHover={{ scale: 1.01 }} 
          className={`block group relative rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden transition-all duration-300 ${borderColor} ${bgColor} ${className}`}
       >
          <div className="h-48 bg-white/5 relative overflow-hidden flex items-center justify-center border-b border-white/5">
-            <div className={`absolute inset-0 bg-gradient-to-tr from-[#0a0a0a] via-transparent to-${color === "purple" ? "purple" : "cyan"}-500/10 opacity-50`}></div>
-            <FiLayout size={40} className="text-white/10 group-hover:text-white/20 transition-colors" />
             
-            <div className="absolute bottom-3 left-3 flex flex-wrap gap-2">
+            {img ? (
+               <div className="relative w-full h-full">
+                  <Image 
+                     src={img} 
+                     alt={title} 
+                     fill 
+                     className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 grayscale group-hover:grayscale-0"
+                     unoptimized
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+               </div>
+            ) : (
+               <>
+                  <div className={`absolute inset-0 bg-gradient-to-tr from-[#0a0a0a] via-transparent to-${color === "purple" ? "purple" : "cyan"}-500/10 opacity-50`}></div>
+                  <FiLayout size={40} className="text-white/10 group-hover:text-white/20 transition-colors" />
+               </>
+            )}
+            
+            {/* Tags flutuantes */}
+            <div className="absolute bottom-3 left-3 flex flex-wrap gap-2 z-10">
                {tags.map(t => (
                  <span key={t} className="text-[10px] font-bold px-2 py-1 rounded bg-black/60 border border-white/10 backdrop-blur-md text-white/70">
                    {t}
@@ -321,7 +352,7 @@ function ProjectCardCyber({ title, tags, desc, color, href, className = "" }: { 
             </div>
          </div>
          
-         <div className="p-6 flex flex-col justify-between flex-1">
+         <div className="p-6 flex flex-col justify-between h-[calc(100%-12rem)]">
             <div>
               <h3 className={`text-xl font-bold mb-2 group-hover:text-white transition-colors`}>{title}</h3>
               <p className="text-white/50 text-sm leading-relaxed mb-4">{desc}</p>
@@ -333,7 +364,7 @@ function ProjectCardCyber({ title, tags, desc, color, href, className = "" }: { 
          </div>
          
          {/* Scanline Effect */}
-         <div className={`absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.4)_51%)] bg-[size:100%_3px] opacity-0 group-hover:opacity-10 transition-opacity mix-blend-overlay`}></div>
+         <div className={`absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.4)_51%)] bg-[size:100%_3px] opacity-0 group-hover:opacity-10 transition-opacity mix-blend-overlay z-20`}></div>
       </motion.a>
    )
 }

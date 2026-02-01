@@ -27,11 +27,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  type NavItem = {
+    href: `#${string}` | `/${string}`;
+    label: string;
+  };
+
   const items: NavItem[] = [
-    { href: "#inicio", label: "Home" },
-    { href: "#stack", label: "Stack" },
-    { href: "#projetos", label: "Projects" },
-    { href: "#contato", label: "Contact" },
+    { href: "/#inicio", label: "Home" },
+    { href: "/#stack", label: "Stack" },
+    { href: "/#projetos", label: "Projects" },
+    { href: "/#contato", label: "Contact" },
   ];
 
   return (
