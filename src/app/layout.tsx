@@ -1,8 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import ThemeScript from "@/components/ThemeScript";
 import { Poppins } from "next/font/google";
-import { I18nProvider } from "@/i18n/I18nProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,10 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" content="#ffffff" />
-        <ThemeScript />
       </head>
       <body className={`min-h-dvh antialiased bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 ${poppins.className}`}>
-        <I18nProvider>{children}</I18nProvider>
+        {children}
       </body>
     </html>
   );

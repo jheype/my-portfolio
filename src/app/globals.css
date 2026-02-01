@@ -1,79 +1,27 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  --color-brand-50:  #faf5ff;
-  --color-brand-100: #f3e8ff;
-  --color-brand-200: #e9d5ff;
-  --color-brand-300: #d8b4fe;
-  --color-brand-400: #c084fc;
-  --color-brand-500: #a855f7;
-  --color-brand-600: #9333ea;
-  --color-brand-700: #7e22ce;
-  --color-brand-800: #6b21a8;
-  --color-brand-900: #581c87;
-
-  --shadow-glow: 0 0 40px rgba(168, 85, 247, 0.4);
+:root {
+  --background: #030303;
+  --foreground: #ffffff;
 }
-
-html, body { height: 100%; }
 
 body {
-  @apply bg-white text-neutral-900 antialiased;
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
 }
 
-.link-underline { position: relative; }
-.link-underline::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #a855f7, #7e22ce);
-  transform: translateX(-50%);
-  transition: width 220ms ease;
+/* Scrollbar Customizada */
+::-webkit-scrollbar {
+  width: 8px;
 }
-.link-underline:hover::after { width: 100%; }
-
-.section { @apply py-24 md:py-28; }
-.container-custom { @apply max-w-6xl mx-auto px-6; }
-
-[data-aos][data-aos][data-aos-duration="0"] { transition-duration: 400ms; }
-
-.bg-noise::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0.04 0.06 0.08 0.1 0.08 0.06 0.04 0.02 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: .12;
-  pointer-events: none;
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
 }
-
-:root.theme-animating *,
-:root.theme-animating *::before,
-:root.theme-animating *::after {
-  transition:
-    background-color .25s ease,
-    color .25s ease,
-    border-color .25s ease,
-    fill .25s ease,
-    stroke .25s ease,
-    box-shadow .25s ease;
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
 }
-@media (prefers-reduced-motion: reduce) {
-  :root.theme-animating *,
-  :root.theme-animating *::before,
-  :root.theme-animating *::after {
-    transition: none !important;
-  }
-}
-
-.dark body {
-  @apply bg-neutral-950 text-neutral-50;
-}
-
-@utility shadow-glow {
-  box-shadow: var(--shadow-glow);
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
 }
