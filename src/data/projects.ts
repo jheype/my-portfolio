@@ -20,14 +20,15 @@ export const projectsData: Project[] = [
     subtitle: "End-to-End Barbershop Management SaaS",
     description:
       "A production-grade SaaS platform designed to digitise and streamline barbershop operations. The system combines customer-facing booking, an advanced administrative dashboard, financial tracking, inventory control, and automated WhatsApp notifications into a single, cohesive workflow.",
-    tags: ["Next.js", "MongoDB", "Prisma", "Tailwind"],
+    tags: ["Next.js", "MongoDB", "Prisma", "Tailwind", "Redist"],
     liveUrl: "https://barbeariahefziba.com/",
     repoUrl: "https://github.com/jheype/barbershop",
     coverImage: "/barbearia.gif",
     gallery: [
-      "/barbearia-mobile.png",
-      "/barbearia-admin.png",
-      "/barbearia-login.png"
+      "/barbearia/barbearia-page.png",
+      "/barbearia/dashboard-home.png",
+      "/barbearia/remunaration.png",
+      "/barbearia/work-hours.png"
     ],
     features: [
       "Real-Time Appointment Booking with Conflict Prevention",

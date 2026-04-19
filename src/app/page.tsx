@@ -9,7 +9,7 @@ import Spotlight from "@/components/ui/Spotlight";
 import { Meteors } from "@/components/ui/Meteors";
 
 import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiExternalLink, FiTerminal, FiLayout, FiShield } from "react-icons/fi";
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiMongodb, SiKalilinux } from "react-icons/si";
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiMongodb, SiRust } from "react-icons/si";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -147,7 +147,7 @@ function PortfolioContent() {
                  { icon: <SiMongodb size={32} className="text-green-400" />, name: "MongoDB" },
                  { icon: <FiTerminal size={32} className="text-white" />, name: "DevOps" },
                  { icon: <FiLayout size={32} className="text-purple-400" />, name: "UI/UX" },
-                 { icon: <SiKalilinux size={32} className="text-white" />, name: "Kali Linux" },
+                 { icon: <SiRust size={32} className="text-orange-400" />, name: "Rust" },
                  { icon: <FiShield size={32} className="text-red-500" />, name: "CyberSec" },
                ].map((tech, i) => (
                  <motion.div key={i} variants={fadeInUp}>
