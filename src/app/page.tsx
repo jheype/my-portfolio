@@ -240,6 +240,20 @@ function PortfolioContent() {
                      img="/brunapsi.gif"
                   />
                 </motion.div>
+
+               {/* 3. DowntownRP (Banner Full Width) */}
+               <motion.div variants={fadeInUp} className="lg:col-span-3">
+               <ProjectCardCyber
+                  title="DowntownRP Site"
+                  tags={["NEXT.JS", "GSAP", "TAILWIND"]}
+                  desc="Cinematic GTA RP website with immersive scroll animations, HUD-inspired interface, parallax sections, and a strong visual identity for a roleplay community."
+                  color="cyan"
+                  href="https://github.com/jheype/downtownrp-site"
+                  className="h-full"
+                  img="./downtownrp.gif"
+               />
+               </motion.div>
+                
              </div>
           </div>
        </motion.section>

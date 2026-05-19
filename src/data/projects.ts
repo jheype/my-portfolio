@@ -125,7 +125,7 @@ export const projectsData: Project[] = [
     coverImage: "/nodus.png",
     gallery: [
       "/nodus/home.png",
-      "/nodus/settings.png",
+      "/nodus/settings.png"
     ],
     features: [
       "Real-Time Screen Capture and Content Filtering",
@@ -146,6 +146,42 @@ export const projectsData: Project[] = [
       { name: "Interface", icon: "egui" },
       { name: "OBS Integration", icon: "Named Pipe Virtual Camera" },
       { name: "Architecture", icon: "Multi-Threaded Pipeline" }
+    ]
+  },
+  {
+    slug: "downtownrp-site",
+    title: "DowntownRP Site",
+    subtitle: "Cinematic GTA RP Community Website",
+    description:
+      "A high-impact website created for DowntownRP, a GTA roleplay community. The project focuses on cinematic presentation, immersive scroll interactions, HUD-inspired visuals, strong branding, and a modern landing page experience designed to attract players and communicate the server's identity.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "GSAP"],
+    repoUrl: "https://github.com/jheype/downtownrp-site",
+    coverImage: "/downtownrp.gif",
+    gallery: [
+      "/downtownrp/home.png",
+      "/downtownrp/about.png",
+      "/downtownrp/launcher.png",
+      "/downtownrp/discord.png"
+    ],
+    features: [
+      "Cinematic Hero Section with GTA RP Visual Identity",
+      "Scroll-Based Animations and Parallax Effects",
+      "HUD-Inspired Interface Components",
+      "Responsive Layout Optimised for Desktop and Mobile",
+      "Server Systems Presentation Sections",
+      "Community-Focused Call-to-Action Flow",
+      "Animated Cards, Panels and Visual Details",
+      "Performance-Oriented Frontend Structure"
+    ],
+    challenges:
+      "The main challenge was creating a GTA RP website that felt cinematic and custom instead of looking like a generic AI-generated landing page. This required combining strong art direction, dark UI composition, GSAP-based animation timing, parallax motion, and performance-conscious component structure without making the interface visually overloaded.",
+    stackDetails: [
+      { name: "Frontend", icon: "Next.js" },
+      { name: "Language", icon: "TypeScript" },
+      { name: "Styling", icon: "Tailwind CSS" },
+      { name: "Animations", icon: "GSAP" },
+      { name: "UI Direction", icon: "HUD-Inspired Design" },
+      { name: "Performance", icon: "Optimised Motion Structure" }
     ]
   }
 ];
