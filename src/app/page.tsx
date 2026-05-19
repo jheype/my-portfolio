@@ -206,7 +206,7 @@ function PortfolioContent() {
                 <motion.div variants={fadeInUp} className="lg:col-span-3">
                   <ProjectCardCyber 
                      title="Brighton2Bahia"
-                     tags={["NEXT.JS", "FRAMER MOTION", "AUDIO"]}
+                     tags={["NEXT.JS", "FRAMER MOTION", "TAILWIND"]}
                      desc="Immersive music portfolio bridging UK Garage and Brazilian rhythms. High-end animations and parallax effects."
                      color="purple"
                      href="#" 
@@ -214,17 +214,17 @@ function PortfolioContent() {
                   />
                 </motion.div>
 
-                {/* 4. Instituto Zavarise (Secundário) */}
-                <motion.div variants={fadeInUp} className="lg:col-span-2">
-                  <ProjectCardCyber 
-                     title="Instituto Zavarise"
-                     tags={["REACT", "SEO", "UI"]}
-                     desc="High-performance institutional website focused on accessibility and conversion."
-                     color="cyan"
-                     href="https://instituto-zavarise.vercel.app"
-                     className="h-full"
-                  />
-                </motion.div>
+                {/* 4. Nodus (Secundário) */}
+               <motion.div variants={fadeInUp} className="lg:col-span-2">
+               <ProjectCardCyber
+                  title="Nodus"
+                  tags={["RUST", "AI", "OBS"]}
+                  desc="Real-time AI content moderation tool for streamers, detecting nudity and violence locally and blurring sensitive content before it reaches the audience."
+                  color="cyan"
+                  href="https://github.com/jheype/nodus"
+                  className="h-full"
+               />
+               </motion.div>
 
                 {/* 5. Bruna Almeida Psi (Secundário) */}
                 <motion.div variants={fadeInUp} className="lg:col-span-1">
