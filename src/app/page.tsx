@@ -209,8 +209,9 @@ function PortfolioContent() {
                      tags={["NEXT.JS", "FRAMER MOTION", "TAILWIND"]}
                      desc="Immersive music portfolio bridging UK Garage and Brazilian rhythms. High-end animations and parallax effects."
                      color="purple"
-                     href="#" 
+                     href="/projects/brighton2bahia" 
                      className="h-full"
+                     img="./brighton.gif"
                   />
                 </motion.div>
 
@@ -221,8 +222,9 @@ function PortfolioContent() {
                   tags={["RUST", "AI", "OBS"]}
                   desc="Real-time AI content moderation tool for streamers, detecting nudity and violence locally and blurring sensitive content before it reaches the audience."
                   color="cyan"
-                  href="https://github.com/jheype/nodus"
+                  href="/projects/nodus"
                   className="h-full"
+                  img="./nodus.png"
                />
                </motion.div>
 

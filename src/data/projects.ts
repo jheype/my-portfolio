@@ -89,7 +89,7 @@ export const projectsData: Project[] = [
     tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     liveUrl: "https://brighton2bahia.vercel.app/",
     repoUrl: "https://github.com/jheype/brighton2bahia",
-    coverImage: "/brighton2bahia.gif",
+    coverImage: "/brighton.gif",
     gallery: [
       "/brighton2bahia/home.png",
       "/brighton2bahia/releaes.png",
