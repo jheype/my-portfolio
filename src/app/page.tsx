@@ -1,23 +1,43 @@
 "use client";
-import { useState, useRef } from "react";
+
+import { useRef, useState } from "react";
+import type { ReactNode } from "react";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import Image from "next/image";
-import Navbar from "@/components/Navbar"; 
+import Navbar from "@/components/Navbar";
 import BootTerminal from "@/components/BootTerminal";
 import GlitchHeader from "@/components/GlitchHeader";
 import Spotlight from "@/components/ui/Spotlight";
 import { Meteors } from "@/components/ui/Meteors";
 
-import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiExternalLink, FiTerminal, FiLayout, FiShield } from "react-icons/fi";
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiMongodb, SiRust } from "react-icons/si";
+import {
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiArrowDown,
+  FiExternalLink,
+  FiTerminal,
+  FiLayout,
+  FiShield,
+} from "react-icons/fi";
+
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiMongodb,
+  SiRust,
+} from "react-icons/si";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
 };
 
 const staggerContainer: Variants = {
@@ -25,9 +45,9 @@ const staggerContainer: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const shimmerStyle = {
@@ -36,9 +56,168 @@ const shimmerStyle = {
   animation: "shimmer 2s linear infinite",
 };
 
+type ProjectFilter =
+  | "all"
+  | "nextjs"
+  | "typescript"
+  | "nodejs"
+  | "mongodb"
+  | "prisma"
+  | "framer-motion"
+  | "tailwind"
+  | "rust"
+  | "gsap";
+
+type ProjectItem = {
+  title: string;
+  tags: string[];
+  technologies: ProjectFilter[];
+  desc: string;
+  color: "purple" | "cyan";
+  href: string;
+  img: string;
+  className: string;
+};
+
+const projectFilters: {
+  label: string;
+  value: ProjectFilter;
+  activeClass: string;
+}[] = [
+  {
+    label: "Todos",
+    value: "all",
+    activeClass:
+      "border-white bg-white/10 text-white shadow-[0_0_24px_rgba(255,255,255,0.14)]",
+  },
+  {
+    label: "Next.js",
+    value: "nextjs",
+    activeClass:
+      "border-white bg-white/10 text-white shadow-[0_0_24px_rgba(255,255,255,0.14)]",
+  },
+  {
+    label: "TypeScript",
+    value: "typescript",
+    activeClass:
+      "border-blue-400 bg-blue-400/10 text-blue-200 shadow-[0_0_24px_rgba(96,165,250,0.18)]",
+  },
+  {
+    label: "Node.js",
+    value: "nodejs",
+    activeClass:
+      "border-green-400 bg-green-400/10 text-green-200 shadow-[0_0_24px_rgba(74,222,128,0.18)]",
+  },
+  {
+    label: "MongoDB",
+    value: "mongodb",
+    activeClass:
+      "border-emerald-400 bg-emerald-400/10 text-emerald-200 shadow-[0_0_24px_rgba(52,211,153,0.18)]",
+  },
+  {
+    label: "Prisma",
+    value: "prisma",
+    activeClass:
+      "border-slate-300 bg-slate-300/10 text-slate-100 shadow-[0_0_24px_rgba(203,213,225,0.14)]",
+  },
+  {
+    label: "Framer Motion",
+    value: "framer-motion",
+    activeClass:
+      "border-pink-400 bg-pink-400/10 text-pink-200 shadow-[0_0_24px_rgba(244,114,182,0.18)]",
+  },
+  {
+    label: "Tailwind",
+    value: "tailwind",
+    activeClass:
+      "border-cyan-400 bg-cyan-400/10 text-cyan-200 shadow-[0_0_24px_rgba(34,211,238,0.18)]",
+  },
+  {
+    label: "Rust",
+    value: "rust",
+    activeClass:
+      "border-orange-500 bg-orange-500/10 text-orange-200 shadow-[0_0_24px_rgba(249,115,22,0.2)]",
+  },
+  {
+    label: "GSAP",
+    value: "gsap",
+    activeClass:
+      "border-green-300 bg-green-300/10 text-green-100 shadow-[0_0_24px_rgba(134,239,172,0.18)]",
+  },
+];
+
+const projects: ProjectItem[] = [
+  {
+    title: "Barbearia Hefziba",
+    tags: ["NEXT.JS", "TYPESCRIPT", "MONGODB", "PRISMA"],
+    technologies: ["nextjs", "typescript", "mongodb", "prisma", "framer-motion"],
+    desc: "Complete scheduling system with admin dashboard, finance tracking and automated reminders.",
+    color: "purple",
+    href: "/projects/barbearia-hefziba",
+    className: "lg:col-span-2",
+    img: "/barbearia.gif",
+  },
+  {
+    title: "JIGBot",
+    tags: ["NODE.JS", "TYPESCRIPT", "DISCORD.JS"],
+    technologies: ["nodejs", "typescript", "framer-motion"],
+    desc: "Advanced Discord bot for server management and automation.",
+    color: "cyan",
+    href: "/projects/jigbot",
+    className: "lg:col-span-1",
+    img: "./jigbot.gif",
+  },
+  {
+    title: "Brighton2Bahia",
+    tags: ["NEXT.JS", "TYPESCRIPT", "FRAMER MOTION", "TAILWIND"],
+    technologies: ["nextjs", "typescript", "framer-motion", "tailwind"],
+    desc: "Immersive music portfolio bridging UK Garage and Brazilian rhythms. High-end animations and parallax effects.",
+    color: "purple",
+    href: "/projects/brighton2bahia",
+    className: "lg:col-span-3",
+    img: "./brighton.gif",
+  },
+  {
+    title: "Nodus",
+    tags: ["RUST", "OBS"],
+    technologies: ["rust"],
+    desc: "Real-time AI content moderation tool for streamers, detecting nudity and violence locally and blurring sensitive content before it reaches the audience.",
+    color: "cyan",
+    href: "/projects/nodus",
+    className: "lg:col-span-2",
+    img: "./nodus.png",
+  },
+  {
+    title: "Bruna Almeida Psi",
+    tags: ["NEXT.JS", "TYPESCRIPT", "FRAMER", "UX", "SEO"],
+    technologies: ["nextjs", "typescript", "framer-motion"],
+    desc: "Minimalist landing page for clinical psychology.",
+    color: "purple",
+    href: "https://brunalmeidapsi.com",
+    className: "lg:col-span-1",
+    img: "/brunapsi.gif",
+  },
+  {
+    title: "DowntownRP Site",
+    tags: ["NEXT.JS", "TYPESCRIPT", "GSAP", "TAILWIND"],
+    technologies: ["nextjs", "typescript", "gsap", "tailwind", "framer-motion"],
+    desc: "Cinematic GTA RP website with immersive scroll animations, HUD-inspired interface, parallax sections, and a strong visual identity for a roleplay community.",
+    color: "cyan",
+    href: "/projects/downtownrp",
+    className: "lg:col-span-3",
+    img: "./downtownrp.gif",
+  },
+];
+
 function PortfolioContent() {
+  const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => project.technologies.includes(activeFilter));
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -49,233 +228,246 @@ function PortfolioContent() {
   const projectsY = useTransform(scrollYProgress, [0, 0.8], ["10%", "0%"]);
 
   return (
-    <div ref={containerRef} className="relative bg-[#030303] text-white min-h-[200vh] overflow-hidden">
-      
+    <div
+      ref={containerRef}
+      className="relative bg-[#030303] text-white min-h-[200vh] overflow-hidden"
+    >
       <style jsx>{`
         @keyframes shimmer {
-          0% { background-position: 0% 0; }
-          100% { background-position: -200% 0; }
+          0% {
+            background-position: 0% 0;
+          }
+
+          100% {
+            background-position: -200% 0;
+          }
         }
       `}</style>
 
-      {/* Background Fixo */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear_gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-          <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-purple-600/10 blur-[150px] rounded-full"></div>
-          <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-cyan-600/10 blur-[150px] rounded-full"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear_gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-purple-600/10 blur-[150px] rounded-full"></div>
+        <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-cyan-600/10 blur-[150px] rounded-full"></div>
       </div>
 
       <Navbar />
 
-      {/* --- HERO SECTION --- */}
-      <motion.section 
-        style={{ y: heroY }} 
+      <motion.section
+        style={{ y: heroY }}
         className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-40 overflow-hidden"
       >
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20 z-10" fill="#8b5cf6" />
-        
+        <Spotlight
+          className="-top-40 left-0 md:left-60 md:-top-20 z-10"
+          fill="#8b5cf6"
+        />
+
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-30">
-           <Meteors number={15} />
+          <Meteors number={15} />
         </div>
-        
+
         <motion.div
-           initial="hidden"
-           animate="visible"
-           variants={staggerContainer}
-           className="text-center relative z-20"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="text-center relative z-20"
         >
-          <motion.div variants={fadeInUp} className="mb-8 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-             <span className="relative flex h-2 w-2">
-               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-             </span>
-             <span className="text-xs font-mono text-white/60 tracking-widest uppercase">System Online</span>
+          <motion.div
+            variants={fadeInUp}
+            className="mb-8 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span className="text-xs font-mono text-white/60 tracking-widest uppercase">
+              System Online
+            </span>
           </motion.div>
-          
+
           <motion.div variants={fadeInUp}>
             <GlitchHeader text="JOÃO ALMEIDA" />
           </motion.div>
-          
-          <motion.p 
+
+          <motion.p
             variants={fadeInUp}
             className="mt-6 text-lg md:text-xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed"
           >
-            Full-Stack Developer crafting high-performance digital experiences & CyberSec Enthusiast.
+            Full-Stack Developer crafting high-performance digital experiences &
+            CyberSec Enthusiast.
           </motion.p>
 
-          <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap justify-center gap-6">
+          <motion.div
+            variants={fadeInUp}
+            className="mt-10 flex flex-wrap justify-center gap-6"
+          >
             <div className="flex gap-4">
-                <SocialIcon icon={<FiGithub />} href="https://github.com/jheype" />
-                <SocialIcon icon={<FiLinkedin />} href="https://linkedin.com/in/jheype" />
-                <SocialIcon icon={<FiMail />} href="mailto:joaop.almeidac12@gmail.com" />
+              <SocialIcon icon={<FiGithub />} href="https://github.com/jheype" />
+              <SocialIcon
+                icon={<FiLinkedin />}
+                href="https://linkedin.com/in/jheype"
+              />
+              <SocialIcon
+                icon={<FiMail />}
+                href="mailto:joaop.almeidac12@gmail.com"
+              />
             </div>
           </motion.div>
         </motion.div>
 
-         <motion.div 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}
-            className="absolute bottom-10 animate-bounce text-white/20"
-         >
-            <FiArrowDown size={24} />
-         </motion.div>
-      </motion.section>
-
-      {/* --- STACK SECTION (THE ARSENAL) --- */}
-      <motion.section 
-         id="stack"
-         style={{ y: stackY }}
-         initial="hidden"
-         whileInView="visible"
-         viewport={{ once: true, amount: 0.2 }}
-         variants={staggerContainer}
-         className="relative z-10 py-32 px-4"
-      >
-         <div className="max-w-6xl mx-auto relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 blur-3xl -z-10"></div>
-            
-            <motion.h2 variants={fadeInUp} className="text-4xl font-bold mb-16 font-mono flex items-center gap-3">
-               <span className="text-purple-500">{">"}</span> THE_ARSENAL
-            </motion.h2>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-               {[
-                 { icon: <SiNextdotjs size={32} />, name: "Next.js" },
-                 { icon: <SiReact size={32} className="text-cyan-400" />, name: "React" },
-                 { icon: <SiTypescript size={32} className="text-blue-500" />, name: "TypeScript" },
-                 { icon: <SiTailwindcss size={32} className="text-cyan-300" />, name: "Tailwind" },
-                 { icon: <SiNodedotjs size={32} className="text-green-500" />, name: "Node.js" },
-                 { icon: <SiMongodb size={32} className="text-green-400" />, name: "MongoDB" },
-                 { icon: <FiTerminal size={32} className="text-white" />, name: "DevOps" },
-                 { icon: <FiLayout size={32} className="text-purple-400" />, name: "UI/UX" },
-                 { icon: <SiRust size={32} className="text-orange-400" />, name: "Rust" },
-                 { icon: <FiShield size={32} className="text-red-500" />, name: "CyberSec" },
-               ].map((tech, i) => (
-                 <motion.div key={i} variants={fadeInUp}>
-                   <TechTile icon={tech.icon} name={tech.name} />
-                 </motion.div>
-               ))}
-            </div>
-         </div>
-      </motion.section>
-
-       {/* --- PROJECTS SECTION (SELECTED WORKS) --- */}
-       <motion.section
-          id="projetos"
-          style={{ y: projectsY }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={staggerContainer}
-          className="relative z-10 py-32 px-4 bg-[#030303]/80 backdrop-blur-md border-t border-white/5"
-       >
-          <div className="max-w-7xl mx-auto">
-             <motion.h2 variants={fadeInUp} className="text-4xl font-bold mb-16 font-mono flex items-center gap-3 justify-end text-right">
-               SELECTED_WORKS <span className="text-cyan-500">{"<"}</span>
-            </motion.h2>
-             
-             {/* GRID LAYOUT CUSTOMIZADO */}
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-                
-                {/* 1. Barbearia Hefziba */}
-                <motion.div variants={fadeInUp} className="lg:col-span-2">
-                  <ProjectCardCyber 
-                     title="Barbearia Hefziba"
-                     tags={["NEXT.JS", "MONGODB", "PRISMA"]}
-                     desc="Complete scheduling system with admin dashboard, finance tracking and automated reminders."
-                     color="purple"
-                     href="/projects/barbearia-hefziba"
-                     className="h-full"
-                     img="/barbearia.gif"
-                  />
-                </motion.div>
-                
-                {/* 2. JIGBot (Destaque Vertical) */}
-                <motion.div variants={fadeInUp} className="lg:col-span-1">
-                  <ProjectCardCyber 
-                     title="JIGBot"
-                     tags={["NODE.JS", "DISCORD.JS", "AI"]}
-                     desc="Advanced Discord bot for server management and automation."
-                     color="cyan"
-                     href="/projects/jigbot" 
-                     className="h-full"
-                     img="./jigbot.gif"
-                  />
-                </motion.div>
-
-                {/* 3. Brighton2Bahia (Banner Full Width) */}
-                <motion.div variants={fadeInUp} className="lg:col-span-3">
-                  <ProjectCardCyber 
-                     title="Brighton2Bahia"
-                     tags={["NEXT.JS", "FRAMER MOTION", "TAILWIND"]}
-                     desc="Immersive music portfolio bridging UK Garage and Brazilian rhythms. High-end animations and parallax effects."
-                     color="purple"
-                     href="/projects/brighton2bahia" 
-                     className="h-full"
-                     img="./brighton.gif"
-                  />
-                </motion.div>
-
-                {/* 4. Nodus (Secundário) */}
-               <motion.div variants={fadeInUp} className="lg:col-span-2">
-               <ProjectCardCyber
-                  title="Nodus"
-                  tags={["RUST", "AI", "OBS"]}
-                  desc="Real-time AI content moderation tool for streamers, detecting nudity and violence locally and blurring sensitive content before it reaches the audience."
-                  color="cyan"
-                  href="/projects/nodus"
-                  className="h-full"
-                  img="./nodus.png"
-               />
-               </motion.div>
-
-                {/* 5. Bruna Almeida Psi (Secundário) */}
-                <motion.div variants={fadeInUp} className="lg:col-span-1">
-                  <ProjectCardCyber 
-                     title="Bruna Almeida Psi"
-                     tags={["FRAMER", "UX", "SEO"]}
-                     desc="Minimalist landing page for clinical psychology."
-                     color="purple"
-                     href="https://brunalmeidapsi.com"
-                     className="h-full"
-                     img="/brunapsi.gif"
-                  />
-                </motion.div>
-
-               {/* 3. DowntownRP (Banner Full Width) */}
-               <motion.div variants={fadeInUp} className="lg:col-span-3">
-               <ProjectCardCyber
-                  title="DowntownRP Site"
-                  tags={["NEXT.JS", "GSAP", "TAILWIND"]}
-                  desc="Cinematic GTA RP website with immersive scroll animations, HUD-inspired interface, parallax sections, and a strong visual identity for a roleplay community."
-                  color="cyan"
-                  href="/projects/downtownrp"
-                  className="h-full"
-                  img="./downtownrp.gif"
-               />
-               </motion.div>
-                
-             </div>
-          </div>
-       </motion.section>
-       
-       {/* --- CONTACT SECTION --- */}
-       <motion.section 
-          id="contato"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="py-40 px-4 relative overflow-hidden"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-10 animate-bounce text-white/20"
         >
+          <FiArrowDown size={24} />
+        </motion.div>
+      </motion.section>
+
+      <motion.section
+        id="stack"
+        style={{ y: stackY }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerContainer}
+        className="relative z-10 py-32 px-4"
+      >
+        <div className="max-w-6xl mx-auto relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 blur-3xl -z-10"></div>
+
+          <motion.h2
+            variants={fadeInUp}
+            className="text-4xl font-bold mb-16 font-mono flex items-center gap-3"
+          >
+            <span className="text-purple-500">{">"}</span> THE_ARSENAL
+          </motion.h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {[
+              { icon: <SiNextdotjs size={32} />, name: "Next.js" },
+              { icon: <SiReact size={32} className="text-cyan-400" />, name: "React" },
+              {
+                icon: <SiTypescript size={32} className="text-blue-500" />,
+                name: "TypeScript",
+              },
+              {
+                icon: <SiTailwindcss size={32} className="text-cyan-300" />,
+                name: "Tailwind",
+              },
+              {
+                icon: <SiNodedotjs size={32} className="text-green-500" />,
+                name: "Node.js",
+              },
+              {
+                icon: <SiMongodb size={32} className="text-green-400" />,
+                name: "MongoDB",
+              },
+              { icon: <FiTerminal size={32} className="text-white" />, name: "DevOps" },
+              { icon: <FiLayout size={32} className="text-purple-400" />, name: "UI/UX" },
+              { icon: <SiRust size={32} className="text-orange-400" />, name: "Rust" },
+              { icon: <FiShield size={32} className="text-red-500" />, name: "CyberSec" },
+            ].map((tech, i) => (
+              <motion.div key={i} variants={fadeInUp}>
+                <TechTile icon={tech.icon} name={tech.name} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="projetos"
+        style={{ y: projectsY }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={staggerContainer}
+        className="relative z-10 py-32 px-4 bg-[#030303]/80 backdrop-blur-md border-t border-white/5"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl font-bold font-mono flex items-center gap-3 text-left md:text-right md:justify-end"
+            >
+              SELECTED_WORKS <span className="text-cyan-500">{"<"}</span>
+            </motion.h2>
+
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap gap-3 md:justify-end"
+            >
+              {projectFilters.map((filter) => {
+                const isActive = activeFilter === filter.value;
+
+                return (
+                  <button
+                    key={filter.value}
+                    type="button"
+                    onClick={() => setActiveFilter(filter.value)}
+                    className={`rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] transition-all ${
+                      isActive
+                        ? filter.activeClass
+                        : "border-white/10 bg-white/[0.03] text-white/40 hover:border-white/30 hover:text-white"
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                );
+              })}
+            </motion.div>
+          </div>
+
+          <motion.div
+            key={activeFilter}
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr"
+          >
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.title}
+                variants={fadeInUp}
+                className={project.className}
+              >
+                <ProjectCardCyber
+                  title={project.title}
+                  tags={project.tags}
+                  desc={project.desc}
+                  color={project.color}
+                  href={project.href}
+                  className="h-full"
+                  img={project.img}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="contato"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className="py-40 px-4 relative overflow-hidden"
+      >
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-           <Meteors number={25} />
+          <Meteors number={25} />
         </div>
 
         <div className="max-w-3xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Ready to start a project?</h2>
-          <p className="text-white/40 mb-12 text-lg">Currently open for freelance work and collaborations.</p>
-          
-          <a 
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
+            Ready to start a project?
+          </h2>
+          <p className="text-white/40 mb-12 text-lg">
+            Currently open for freelance work and collaborations.
+          </p>
+
+          <a
             href="mailto:joaop.almeidac12@gmail.com"
             style={shimmerStyle}
             className="inline-flex h-14 items-center justify-center rounded-full border border-white/10 px-10 font-medium text-white transition-transform hover:scale-105 active:scale-95 text-lg"
@@ -288,101 +480,126 @@ function PortfolioContent() {
       <footer className="py-8 border-t border-white/5 text-center text-white/20 text-sm font-mono relative z-10 bg-black">
         <p>&copy; {new Date().getFullYear()} João Almeida. Built with Next.js & Tailwind.</p>
       </footer>
-        
-       <div className="h-[10vh] bg-black"></div>
+
+      <div className="h-[10vh] bg-black"></div>
     </div>
   );
 }
 
-function SocialIcon({ icon, href }: { icon: React.ReactNode, href: string }) {
-   return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-500/50 transition-all text-white/70 hover:text-white hover:scale-110 group">
-         <div className="group-hover:text-purple-400 transition-colors">
-            {icon}
-         </div>
-      </a>
-   )
+function SocialIcon({ icon, href }: { icon: ReactNode; href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="p-3 rounded-xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-500/50 transition-all text-white/70 hover:text-white hover:scale-110 group"
+    >
+      <div className="group-hover:text-purple-400 transition-colors">{icon}</div>
+    </a>
+  );
 }
 
-function TechTile({ icon, name }: { icon: React.ReactNode, name: string }) {
-   return (
-      <motion.div 
-         whileHover={{ y: -5, backgroundColor: "rgba(255,255,255,0.05)" }}
-         className="flex flex-col items-center justify-center p-6 rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-purple-500/30 transition-colors group"
-      >
-         <div className="mb-4 opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">{icon}</div>
-         <span className="font-mono text-sm text-white/40 group-hover:text-white transition-colors">{name}</span>
-      </motion.div>
-   )
+function TechTile({ icon, name }: { icon: ReactNode; name: string }) {
+  return (
+    <motion.div
+      whileHover={{ y: -5, backgroundColor: "rgba(255,255,255,0.05)" }}
+      className="flex flex-col items-center justify-center p-6 rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-purple-500/30 transition-colors group"
+    >
+      <div className="mb-4 opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">
+        {icon}
+      </div>
+      <span className="font-mono text-sm text-white/40 group-hover:text-white transition-colors">
+        {name}
+      </span>
+    </motion.div>
+  );
 }
 
-type ProjectProps = { 
-  title: string; 
-  tags: string[]; 
-  desc: string; 
-  color: "purple" | "cyan"; 
-  href: string; 
+type ProjectProps = {
+  title: string;
+  tags: string[];
+  desc: string;
+  color: "purple" | "cyan";
+  href: string;
   className?: string;
   img?: string;
 };
 
-function ProjectCardCyber({ title, tags, desc, color, href, className = "", img }: ProjectProps) {
-   const borderColor = color === "purple" ? "hover:border-purple-500/50" : "hover:border-cyan-500/50";
-   const textColor = color === "purple" ? "text-purple-500" : "text-cyan-500";
-   const bgColor = color === "purple" ? "hover:bg-purple-500/5" : "hover:bg-cyan-500/5";
+function ProjectCardCyber({
+  title,
+  tags,
+  desc,
+  color,
+  href,
+  className = "",
+  img,
+}: ProjectProps) {
+  const borderColor =
+    color === "purple" ? "hover:border-purple-500/50" : "hover:border-cyan-500/50";
+  const textColor = color === "purple" ? "text-purple-500" : "text-cyan-500";
+  const bgColor = color === "purple" ? "hover:bg-purple-500/5" : "hover:bg-cyan-500/5";
+  const imageGradient =
+    color === "purple"
+      ? "bg-gradient-to-tr from-[#0a0a0a] via-transparent to-purple-500/10"
+      : "bg-gradient-to-tr from-[#0a0a0a] via-transparent to-cyan-500/10";
 
-   return (
-      <motion.a 
-         href={href}
-         target="_blank"
-         whileHover={{ scale: 1.01 }} 
-         className={`block group relative rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden transition-all duration-300 ${borderColor} ${bgColor} ${className}`}
-      >
-         <div className="h-48 bg-white/5 relative overflow-hidden flex items-center justify-center border-b border-white/5">
-            
-            {img ? (
-               <div className="relative w-full h-full">
-                  <Image 
-                     src={img} 
-                     alt={title} 
-                     fill 
-                     className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 grayscale group-hover:grayscale-0"
-                     unoptimized
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
-               </div>
-            ) : (
-               <>
-                  <div className={`absolute inset-0 bg-gradient-to-tr from-[#0a0a0a] via-transparent to-${color === "purple" ? "purple" : "cyan"}-500/10 opacity-50`}></div>
-                  <FiLayout size={40} className="text-white/10 group-hover:text-white/20 transition-colors" />
-               </>
-            )}
-            
-            {/* Tags flutuantes */}
-            <div className="absolute bottom-3 left-3 flex flex-wrap gap-2 z-10">
-               {tags.map(t => (
-                 <span key={t} className="text-[10px] font-bold px-2 py-1 rounded bg-black/60 border border-white/10 backdrop-blur-md text-white/70">
-                   {t}
-                 </span>
-               ))}
-            </div>
-         </div>
-         
-         <div className="p-6 flex flex-col justify-between h-[calc(100%-12rem)]">
-            <div>
-              <h3 className={`text-xl font-bold mb-2 group-hover:text-white transition-colors`}>{title}</h3>
-              <p className="text-white/50 text-sm leading-relaxed mb-4">{desc}</p>
-            </div>
-            
-            <div className="flex items-center gap-2 text-xs font-mono opacity-60 group-hover:opacity-100 transition-opacity mt-auto">
-               <span className={textColor}>{">"}</span> VIEW_PROJECT.exe <FiExternalLink />
-            </div>
-         </div>
-         
-         {/* Scanline Effect */}
-         <div className={`absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.4)_51%)] bg-[size:100%_3px] opacity-0 group-hover:opacity-10 transition-opacity mix-blend-overlay z-20`}></div>
-      </motion.a>
-   )
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      whileHover={{ scale: 1.01 }}
+      className={`block group relative rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden transition-all duration-300 ${borderColor} ${bgColor} ${className}`}
+    >
+      <div className="h-48 bg-white/5 relative overflow-hidden flex items-center justify-center border-b border-white/5">
+        {img ? (
+          <div className="relative w-full h-full">
+            <Image
+              src={img}
+              alt={title}
+              fill
+              className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 grayscale group-hover:grayscale-0"
+              unoptimized
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+          </div>
+        ) : (
+          <>
+            <div className={`absolute inset-0 ${imageGradient} opacity-50`}></div>
+            <FiLayout
+              size={40}
+              className="text-white/10 group-hover:text-white/20 transition-colors"
+            />
+          </>
+        )}
+
+        <div className="absolute bottom-3 left-3 flex flex-wrap gap-2 z-10">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[10px] font-bold px-2 py-1 rounded bg-black/60 border border-white/10 backdrop-blur-md text-white/70"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="p-6 flex flex-col justify-between h-[calc(100%-12rem)]">
+        <div>
+          <h3 className="text-xl font-bold mb-2 group-hover:text-white transition-colors">
+            {title}
+          </h3>
+          <p className="text-white/50 text-sm leading-relaxed mb-4">{desc}</p>
+        </div>
+
+        <div className="flex items-center gap-2 text-xs font-mono opacity-60 group-hover:opacity-100 transition-opacity mt-auto">
+          <span className={textColor}>{">"}</span> VIEW_PROJECT.exe <FiExternalLink />
+        </div>
+      </div>
+
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.4)_51%)] bg-[size:100%_3px] opacity-0 group-hover:opacity-10 transition-opacity mix-blend-overlay z-20"></div>
+    </motion.a>
+  );
 }
 
 export default function HomePage() {
