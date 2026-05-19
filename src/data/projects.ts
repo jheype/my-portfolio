@@ -149,7 +149,7 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    slug: "downtownrp-site",
+    slug: "downtownrp",
     title: "DowntownRP Site",
     subtitle: "Cinematic GTA RP Community Website",
     description:
