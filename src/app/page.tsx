@@ -248,7 +248,7 @@ function PortfolioContent() {
                   tags={["NEXT.JS", "GSAP", "TAILWIND"]}
                   desc="Cinematic GTA RP website with immersive scroll animations, HUD-inspired interface, parallax sections, and a strong visual identity for a roleplay community."
                   color="cyan"
-                  href="https://github.com/jheype/downtownrp-site"
+                  href="/projects/downtownrp"
                   className="h-full"
                   img="./downtownrp.gif"
                />

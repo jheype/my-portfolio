@@ -155,6 +155,7 @@ export const projectsData: Project[] = [
     description:
       "A high-impact website created for DowntownRP, a GTA roleplay community. The project focuses on cinematic presentation, immersive scroll interactions, HUD-inspired visuals, strong branding, and a modern landing page experience designed to attract players and communicate the server's identity.",
     tags: ["Next.js", "TypeScript", "Tailwind", "GSAP"],
+    liveUrl: "https://downtownrp-site.vercel.app/",
     repoUrl: "https://github.com/jheype/downtownrp-site",
     coverImage: "/downtownrp.gif",
     gallery: [
